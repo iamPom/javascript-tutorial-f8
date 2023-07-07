@@ -1,4 +1,4 @@
-//----------------------------------HTML DOM---------------------------------
+//---------------------------------- 13. HTML DOM---------------------------------
 // Document Object Model || Có 3 thành phần
 /**
  * 1. Element
@@ -358,6 +358,7 @@
 // event listener đặc biệt hữu hiệu khi cần xử lý mà hủy bỏ lắng nghe
 //end=========================
 
+//---------------------------------- 14. JSON, Fetch, Postman ---------------------------------
 /* ================ 161. JSON          ====== */
 // 1. Là 1 định dạng dữ liệu (chuỗi)
 // 2. Javascript Object Notation (JSON)
@@ -728,39 +729,127 @@
 
 //end=========================
 
-/* ================ 177. JSON server          ====== */
-// - JSON server: API Server
-// - npm: node package manager  -> npmjs.com
-
-
-//end=========================
 
 /* ================ 177. JSON server           ====== */
-var courseApi = "http://localhost:3000/courses"
+// - JSON server: API Server(Fake) / Mock API -> OK
+// - npm: node package manager  -> npmjs.com
+// var courseApi = "http://localhost:3000/courses"
 
-fetch(courseApi)
-    .then(function (response) {
-        return response.json();
+// fetch(courseApi)
+//     .then(function (response) {
+//         return response.json();
+//     })
+//     .then(function (courses) {
+//         console.log(courses)
+//     })
+
+
+//end=========================
+
+/* ================ 178. Sử dụng Postman làm việc với REST API         ====== */
+//      - CRUD
+//          - Create: Tạo mới -> POST
+//          - Read: Lấy dữ liệu -> GET
+//          - Update: Chỉnh sửa -> PUT/PATCH
+//          - Delete: Xóa  -> DELETE
+//          Hướng dẫn postman
+
+//end=========================
+
+/* ================ 179. Thêm/sửa/xóa khóa học với Fetch và REST API           ====== */
+var courseApi = 'http://localhost:3000/courses'
+
+function start() {
+    // getCourses(function (courses) {
+    //     console.log(courses); //để xem trước thoi
+    // })
+    getCourses(renderCourses);
+
+    handleCreateForm();
+}
+
+start();
+
+
+// Function
+function getCourses(callback) {
+    fetch(courseApi)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(callback);
+}
+
+function createCourse(data, callback) {
+    options = {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    };
+    fetch(courseApi, options)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(callback);
+}
+
+function handelDeleteCourse(id) {
+    options = {
+        method: 'DELETE',
+        headers: {
+            "Content-Type": "application/json"
+        },
+    };
+    fetch(courseApi + "/" + id, options)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function () {
+            var courseItem = document.querySelector('.course-item-' + id);
+            if (courseItem) {
+                courseItem.remove();
+            }
+        });
+}
+
+function renderCourses(courses) {
+    var listCoursesBlock = document.querySelector('#list-courses');
+    var htmls = courses.map(function (course) {
+        return `
+            <li class ="course-item-${course.id}">
+                <h4>${course.name}</h4>
+                <p>${course.description}</p>
+                <button onclick="handelDeleteCourse(${course.id})">Xóa</button>
+            </li>    
+        `;
     })
-    .then(function (courses) {
-        console.log(courses)
-    })
+    listCoursesBlock.innerHTML = htmls.join("");
+}
 
+function handleCreateForm() {
+    var createBtn = document.querySelector("#create")
+    createBtn.onclick = function () {
+        // alert() // thử
+        var name = document.querySelector('input[name="name"]').value;
+        var description = document.querySelector('input[name="description"]').value;
+        // console.log(name);
+        // console.log(description);
+        var formData = {
+            name: name,
+            description: description
+        }
+
+        createCourse(formData, function () {
+            getCourses(renderCourses);
+        });
+    }
+}
 
 //end=========================
 
-/* ================ .           ====== */
-
-
-
-//end=========================
-
-/* ================ .           ====== */
-
-
-
-//end=========================
-
+//---------------------------------- 15. ECMAScript 6+---------------------------------
 /* ================ .           ====== */
 
 
