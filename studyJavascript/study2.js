@@ -719,7 +719,7 @@
 //         htmls = htmls.join('');
 //         // console.log(htmls)
 //         document.getElementById('posts-block').innerHTML = htmls
-        
+
 //     })
 //     .catch(function (err) {
 //         alert('Có lỗi!');
@@ -757,110 +757,450 @@
 //end=========================
 
 /* ================ 179. Thêm/sửa/xóa khóa học với Fetch và REST API           ====== */
-var courseApi = 'http://localhost:3000/courses'
+// var courseApi = 'http://localhost:3000/courses'
 
-function start() {
-    // getCourses(function (courses) {
-    //     console.log(courses); //để xem trước thoi
-    // })
-    getCourses(renderCourses);
+// function start() {
+//     // getCourses(function (courses) {
+//     //     console.log(courses); //để xem trước thoi
+//     // })
+//     getCourses(renderCourses);
 
-    handleCreateForm();
-}
+//     handleCreateForm();
+// }
 
-start();
+// start();
 
 
-// Function
-function getCourses(callback) {
-    fetch(courseApi)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(callback);
-}
+// // Function
+// function getCourses(callback) {
+//     fetch(courseApi)
+//         .then(function (response) {
+//             return response.json();
+//         })
+//         .then(callback);
+// }
 
-function createCourse(data, callback) {
-    options = {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-    };
-    fetch(courseApi, options)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(callback);
-}
+// function createCourse(data, callback) {
+//     options = {
+//         method: 'POST',
+//         headers: {
+//             "Content-Type": "application/json"
+//         },
+//         body: JSON.stringify(data)
+//     };
+//     fetch(courseApi, options)
+//         .then(function (response) {
+//             return response.json();
+//         })
+//         .then(callback);
+// }
 
-function handelDeleteCourse(id) {
-    options = {
-        method: 'DELETE',
-        headers: {
-            "Content-Type": "application/json"
-        },
-    };
-    fetch(courseApi + "/" + id, options)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function () {
-            var courseItem = document.querySelector('.course-item-' + id);
-            if (courseItem) {
-                courseItem.remove();
-            }
-        });
-}
+// function handelDeleteCourse(id) {
+//     options = {
+//         method: 'DELETE',
+//         headers: {
+//             "Content-Type": "application/json"
+//         },
+//     };
+//     fetch(courseApi + "/" + id, options)
+//         .then(function (response) {
+//             return response.json();
+//         })
+//         .then(function () {
+//             var courseItem = document.querySelector('.course-item-' + id);
+//             if (courseItem) {
+//                 courseItem.remove();
+//             }
+//         });
+// }
 
-function renderCourses(courses) {
-    var listCoursesBlock = document.querySelector('#list-courses');
-    var htmls = courses.map(function (course) {
-        return `
-            <li class ="course-item-${course.id}">
-                <h4>${course.name}</h4>
-                <p>${course.description}</p>
-                <button onclick="handelDeleteCourse(${course.id})">Xóa</button>
-            </li>    
-        `;
-    })
-    listCoursesBlock.innerHTML = htmls.join("");
-}
+// function renderCourses(courses) {
+//     var listCoursesBlock = document.querySelector('#list-courses');
+//     var htmls = courses.map(function (course) {
+//         return `
+//             <li class ="course-item-${course.id}">
+//                 <h4>${course.name}</h4>
+//                 <p>${course.description}</p>
+//                 <button onclick="handelDeleteCourse(${course.id})">Xóa</button>
+//             </li>
+//         `;
+//     })
+//     listCoursesBlock.innerHTML = htmls.join("");
+// }
 
-function handleCreateForm() {
-    var createBtn = document.querySelector("#create")
-    createBtn.onclick = function () {
-        // alert() // thử
-        var name = document.querySelector('input[name="name"]').value;
-        var description = document.querySelector('input[name="description"]').value;
-        // console.log(name);
-        // console.log(description);
-        var formData = {
-            name: name,
-            description: description
-        }
+// function handleCreateForm() {
+//     var createBtn = document.querySelector("#create")
+//     createBtn.onclick = function () {
+//         // alert() // thử
+//         var name = document.querySelector('input[name="name"]').value;
+//         var description = document.querySelector('input[name="description"]').value;
+//         // console.log(name);
+//         // console.log(description);
+//         var formData = {
+//             name: name,
+//             description: description
+//         }
 
-        createCourse(formData, function () {
-            getCourses(renderCourses);
-        });
-    }
-}
+//         createCourse(formData, function () {
+//             getCourses(renderCourses);
+//         });
+//     }
+// }
 
 //end=========================
 
-//---------------------------------- 15. ECMAScript 6+---------------------------------
+//---------------------------------- 15. ECMAScript 6+ ---------------------------------
+/* ================ 180. ECMAScript 6 - ECMAScript 2015 - ES6           ====== */
+// 1. Let, const
+// 2. Template Literals
+// 3. Multi-line String
+// 4. Arrow Function
+// 5. Classes
+// 6. Default parameter values
+// 7. Destructuring
+// 8. Rest parameters
+// 9. Spread
+// 10. Enhanced object literals
+// 11. Tagged template literal
+// 12. Modules
+
+//Tất cả trình duyệt vẫn chưa hỗ trợ hoàn toàn ES6
+// Babel sẽ học để hỗ trợ chuyển ES6 để khi compile ra sẽ ra ES5 để hỗ trợ mọi trình duyệt
+
+//end=========================
+
+/* ================ 181. Let & Const           ====== */
+// 1. Var / Let, Const: Scope, Hosting
+// 2. Const / Var, Let: Assignment
+
+// code block: if else, loop, {}, ...
+// code thuần: var
+// babel: const, let
+// - khi định nghĩa biến không cần gán lại thì dùng const
+// - cần gán lại thì let
+
+// if(true){
+//     var course = "Javascipt basic"
+//     // let course1 = "Javascipt basic 1" // const cung vay
+// }
+// console.log(course)
+// // console.log(course1) // khong hien duoc
+
+// let, const không truy cập bên ngoài block nma trong thì được
+
+// if(true){
+//     let course = "Javascipt basic"
+//     {
+//         {
+//             const course = 123
+//             console.log(course) // truy cap duoc ben trong
+//         }
+//     }
+// }
+
+
+// hosting chỉ có var được hosting
+
+// a = 1
+// var a; // oke
+// let a; // khong duoc
+// console.log(a)
+
+// const là biến hằng nên k thể gán lại được
+// const a = {
+//     name: 'javascript'
+// };
+
+// a.name = 'PHP'
+// console.log(a)
+
+//end=========================
+
+/* ================ 182. Template literals           ====== */
+
+// const courseName = "Javascript";
+// // const description = "Course Name: " + courseName;
+// const description = `Course Name: ${courseName} \\    \\n template string noi suy voi \${}` ;
+// console.log(description)
+
+
+// const lines =
+// `line 1
+// line 2
+// line 3`
+
+// console.log(lines)
+
+
+//end=========================
+
+/* ================ 183. Arrow function           ====== */
+// ham binh thuong
+// const logger = function(log) {
+//     console.log(log);
+// }
+// logger('Message...')
+
+// arrow
+// const logger = (log) => {
+//     console.log(log);
+// }
+// logger('Message...')
+
+// const sum = (a, b) => a + b;
+// console.log(sum(2,3))
+
+// muon return object
+// const sum = (a, b) => ({ a: a, b: b });
+// console.log(sum(2, 3))
+
+// const logger = log => console.log(log);
+// logger('Message...')
+
+// const course = {
+//     name: 'Javascript basic!',
+//     getName: function () {
+//         return this.name; // context
+//     }
+// }
+// console.log(course.getName());
+
+// //arrow function không thể sử dụng làm constructer được
+// const Course = function (name, price) { //dung arrow o day la sai
+//     this.name = name;
+//     this.price = price;
+// }
+
+// const jsCourse = new Course("js", 100);
+// console.log(jsCourse)
+
+
+//end=========================
+
+/* ================ 185. Classes          ====== */
+// const Course = function (name, price) { //dung arrow o day la sai
+//     this.name = name;
+//     this.price = price;
+//     this.getName = function () {
+//         return this.name;
+//     }
+// }
+
+// // Đoạn mã dưới khi sử dụng class
+// class Course {
+//     constructor(name, price) {
+//         this.name = name;
+//         this.price = price;
+//     }
+//     getName(){
+//         return this.name;
+//     };
+//     getPrice(){
+//         return this.price;
+//     }
+// }
+
+// const phpCourse = new Course("php",1000)
+// const jsCourse = new Course("Javascript", 1000)
+
+// console.log(phpCourse)
+// console.log(jsCourse.getPrice())
+
+//end=========================
+
+
+/* ================ 187. Default parameter values          ====== */
+// function logger(log, type = 'log') { // dấu bằng để giá trị mặc định
+//     console[type](log);
+// }
+// logger('Message...','warn')
+
+//end=========================
+
+
+/* ================ 188. Enhandced object literals          ====== */
+// 1. Định nghĩa key: value cho object
+// 2. Định nghĩa method cho object
+// 3. Định nghĩa key cho object dưới dạng biến
+// var name1 = 'Javascript'
+// var price = 1000;
+
+// var course = {
+//     name1,
+//     price,
+//     getName() {
+//         return name1
+//     }
+// }
+
+// console.log(course)
+// console.log(course.getName())
+
+// var fieldName = 'name'
+// var fieldPrice = 'price'
+
+// const course = {
+//     [fieldName]: 'Javascript',
+//     fieldPrice: 1000
+// }
+// console.log(course)
+
+//end=========================
+
+
+/* ================ 189. Destructuring, Rest          ====== */
+// var array = ['Javascript', 'PHP', 'Ruby']
+
+//binh thuong
+// var a = array[0]
+// var b = array[1]
+// var c = array[2]
+
+// khi dung Destructuring
+// var [a, b, c] = array; // co the lay ít biến hơn cx đc [a, , c]
+// console.log(a,b,c)
+
+//rest
+// var [a, ...rest] = array // nhung phan con lai
+// console.log(a)
+// console.log(rest)
+
+// var course = {
+//     name: 'JavaScript',
+//     price: 100,
+//     image: 'image-address',
+// }
+
+// var { name, price, price2 } = course
+// console.log(name, price, price2)
+
+// var { name, ...newObject } = course
+// console.log(name)
+// console.log(newObject) // vi du yeu cau xoa key ma khong dung delete
+
+// var course = {
+//     name: 'JavaScript',
+//     price: 100,
+//     image: 'image-address',
+//     children: {
+//         name: 'ReactJS'
+//     }
+// }
+// var { name: parentName, children: { name: childName } } = course
+// console.log(parentName, childName)
+
+// var { name, description = 'default description' } = course
+// console.log(name)
+// console.log(description)
+
+// khi ... dùng với destructuring thì nó là Rest và cả khi dùng làm tham số như
+// bên dưới vẫn là rest, các trường hợp còn lại là Spread
+
+// function logger(...params) {
+//     console.log(params)
+// }
+// console.log(logger(1,2,3,4,5,6,7))
+
+//end=========================
+
+
+/* ================ 190. Spread          ====== */
+// nói lại phần bị thiếu trong video trước
+// function logger(...params) {
+//     console.log(params)
+// }
+// console.log(logger(1,2,3,4,5,6,7))
+
+//object
+// function logger({name, price, ...rest}) {
+//     console.log(name)
+//     console.log(price)
+//     console.log(rest)
+// }
+// logger({
+//     name: 'JavaScript',
+//     price: 100,
+//     image: 'image-address',
+// })
+
+// with array
+// function logger([a, b, ...rest]) {
+//     console.log(a)
+//     console.log(b)
+//     console.log(rest)
+// }
+// logger([1,2,3,4,5])
+
+//// Spread
+// khi dung ... trước dấu ngoặc mảng thì nó sẽ bỏ đi cặp ngoặc (nối lại)
+
+// with array
+// var array1 = ['Javascript', 'Ruby', 'PHP']
+// var array2 = ['ReactJS', 'Dart']
+// var array3 = [...array2, ...array1]
+// console.log(array3)
+
+//with object
+// var object1 = {
+//     name: 'JS'
+// }
+
+// var object2 = {
+//     price: 1000
+// }
+
+// var object3 = {
+//     ...object1,
+//     ...object2
+// }
+// console.log(object3)
+
+// vi du trang f8
+// var defaultConfig = {
+//     api: 'https://domain-trang-khoa-hoc',
+//     apiVersion: 'v1',
+//     other: 'other'
+//     //
+//     //
+// }
+// var exerciseConfig = {
+//     ...defaultConfig,
+//     api: 'https://domain-trang-bai-tap'
+// }
+// console.log(exerciseConfig)
+
+// vi dụ truyền tham số cho hàm
+// var array = ['JS', 'PHP', 'Ruby']
+// // function logger(a, b, c) {
+// //     console.log(a, b, c)
+// // }
+// function logger(...rest) { // đây gọi là tham số
+//     for (var i = 0; i < rest.length; i++){
+//             console.log(rest[i])
+//         }
+//     }
+// logger(...array) // này gọi là đối số
+
+// NOTE: rest khi dùng kết hợp với destructuring, và khi định nghĩa ra tham số
+// còn khi truyền đối số là spread và khi dùng nó rải trong array, object khác 
+// thì nó là spread
+
+//end=========================
+
+
 /* ================ .           ====== */
 
 
 
 //end=========================
 
+
 /* ================ .           ====== */
 
 
 
 //end=========================
+
 
 /* ================ .           ====== */
 
