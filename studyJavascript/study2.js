@@ -1182,8 +1182,88 @@
 // logger(...array) // này gọi là đối số
 
 // NOTE: rest khi dùng kết hợp với destructuring, và khi định nghĩa ra tham số
-// còn khi truyền đối số là spread và khi dùng nó rải trong array, object khác 
+// còn khi truyền đối số là spread và khi dùng nó rải trong array, object khác
 // thì nó là spread
+
+//end=========================
+
+
+/* ================ 192. Tagged template literals          ====== */
+// hơi khó hơn các khác niệm khác, mới nhìn tưởng sai cú pháp
+
+// function highlight([first, ...strings], ...values) {
+//     // console.log(rest)
+//     // console.log('first: ', first)
+//     // console.log('strings: ', strings)
+//     // console.log('values: ', values)
+//     return values.reduce(
+//         (acc, curr) => [...acc, `<span>${curr}</span>`, strings.shift()],
+//         [first]
+//     ).join('')
+
+// }
+// // idea: Học lập trình <span>Javascript</span> tại <span>F8</span>!
+
+// var brand = 'F8'
+// var course = 'Javascript'
+
+// var html = highlight`Học lập trình ${course} tại ${brand}!`
+
+// console.log(html)
+
+//end=========================
+
+
+/* ================ 193. Modules            ====== */
+// Là việc bóc tách các nghiệp vụ ra từng modules riêng, tách ra nhiều file hoặc tập hợp nhiều file
+// Import / Export
+// chỉ khi export default
+
+// import { logger2 } from './logger/index.js';
+// // import logger from './logger/index.js';
+// import {TYPE_LOG, TYPE_WARN, TYPE_ERROR} from './constants.js'; // khi export thường, const
+// import * as constants from './constants.js'
+
+
+// console.log(constants)
+// // logger('aaa')
+// // console.log(logger)
+// logger2('test message...', constants.TYPE_WARN)
+
+//end=========================
+
+
+/* ================ 194. Optinal chaining(?.)          ====== */
+const adventurer = {
+    name: 'Alice',
+    cat: {
+        name: 'Dinah',
+        cat2: {
+            name: 'Dinah 2',
+            cat3: {
+                name: 'Dinah 3',
+            }
+        }
+    }
+};
+
+if (
+    adventurer.cat &&
+    adventurer.cat.cat2 &&
+    adventurer.cat.cat2.cat3
+) {
+    console.log(adventurer.cat.name)
+}
+
+  
+// const dogName = adventurer.dog?.name;
+// console.log(dogName);
+// // Expected output: undefined
+  
+// console.log(adventurer.someNonExistentMethod?.());
+// // Expected output: undefined
+  
+
 
 //end=========================
 
