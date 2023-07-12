@@ -1233,37 +1233,49 @@
 //end=========================
 
 
-/* ================ 194. Optinal chaining(?.)          ====== */
-const adventurer = {
-    name: 'Alice',
-    cat: {
-        name: 'Dinah',
-        cat2: {
-            name: 'Dinah 2',
-            cat3: {
-                name: 'Dinah 3',
-            }
-        }
-    }
-};
+/* ================ 194. Optional chaining(?.)          ====== */
+// const adventurer = {
+//     name: 'Alice',
+//     cat: {
+//         name: 'Dinah',
+//         cat2: {
+//             name: 'Dinah 2',
+//             cat3: {
+//                 name: 'Dinah 3',
+//             }
+//         }
+//     }
+// };
 
-if (
-    adventurer.cat &&
-    adventurer.cat.cat2 &&
-    adventurer.cat.cat2.cat3
-) {
-    console.log(adventurer.cat.name)
-}
+// // khi không dùng optional chaining
+// if (
+//     adventurer.cat &&
+//     adventurer.cat.cat2 &&
+//     adventurer.cat.cat2.cat3
+// ) {
+//     console.log(adventurer.cat.cat2.cat3.name)
+// }
 
+// //Khi dùng optional chaining
+// if (adventurer?.cat?.cat2?.cat3) {
+//     console.log(adventurer.cat.cat2.cat3.name)
+// }
   
+//mozila
 // const dogName = adventurer.dog?.name;
 // console.log(dogName);
 // // Expected output: undefined
-  
+
 // console.log(adventurer.someNonExistentMethod?.());
 // // Expected output: undefined
-  
 
+// const obj = {
+//     // getName(value) {
+//     //     console.log(value)
+//     // }
+// }
+
+// obj.getName?.(123)
 
 //end=========================
 
